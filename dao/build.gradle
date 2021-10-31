@@ -1,0 +1,13 @@
+plugins {
+    id 'war'
+}
+
+dependencies {
+    implementation project(":model")
+    implementation 'org.postgresql:postgresql:42.3.0'
+    implementation group: 'com.zaxxer', name: 'HikariCP', version: '4.0.3'
+    implementation group: 'org.springframework', name: 'spring-jdbc', version: '5.3.7'
+    testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter', version: '3.6.28'
+    testImplementation group: 'com.h2database', name: 'h2', version: '1.4.200'
+
+}

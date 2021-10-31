@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+}
+
+allprojects {
+    plugins.withType(JavaPlugin) {
+        dependencies {
+            implementation 'org.postgresql:postgresql:42.3.0'
+            compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
+            annotationProcessor 'org.projectlombok:lombok:1.18.20'
+            testImplementation("org.junit.jupiter:junit-jupiter:5.7.0")
+            testImplementation group: 'org.springframework', name: 'spring-test', version: '5.3.8'
+            implementation group: 'org.springframework', name: 'spring-context', version: '5.3.7'
+            implementation group: 'org.springframework', name: 'spring-webmvc', version: '5.3.7'
+            implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.0-alpha1'
+            implementation group: 'org.slf4j', name: 'slf4j-simple', version: '2.0.0-alpha1'
+        }
+
+        test {
+            useJUnitPlatform()
+        }
+
+        repositories {
+            mavenCentral()
+        }
+    }
+}
