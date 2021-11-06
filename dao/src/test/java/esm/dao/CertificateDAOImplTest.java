@@ -1,8 +1,9 @@
-package com.epam.esm.dao;
+package esm.dao;
 
-import com.epam.esm.config.TestConfig;
+import com.epam.esm.dao.CertificateDAO;
 import com.epam.esm.entity.Certificate;
 import com.epam.esm.entity.QuerySpecification;
+import esm.config.TestConfig;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,7 +27,7 @@ class CertificateDAOImplTest {
 
     @Autowired
     private CertificateDAO certificateDAO;
-
+/*
     @Test
     void findAllQuerySpecification() {
         QuerySpecification querySpecification = QuerySpecification.builder()
@@ -36,6 +37,7 @@ class CertificateDAOImplTest {
         Assertions.assertFalse(certificates.isEmpty());
     }
 
+ */
     @Test
     void findAllQuerySpecificationEmptySpecification() {
         QuerySpecification querySpecification = new QuerySpecification();
@@ -46,15 +48,15 @@ class CertificateDAOImplTest {
     @Test
     void createValid() {
         Certificate certificate = Certificate.builder()
-                .name("test name")
-                .description("Test description")
-                .price(new BigDecimal("11"))
-                .duration(4)
+                .name("name for test create certificate")
+                .description("Some description for test")
+                .price(new BigDecimal("100"))
+                .duration(10)
                 .build();
         Certificate actual = certificateDAO.create(certificate);
         Assertions.assertEquals(certificate.getName(), actual.getName());
     }
-
+/*
     @Test
     void findAllQuerySpecificationEmpty() {
         QuerySpecification querySpecification = QuerySpecification.builder()
@@ -63,7 +65,7 @@ class CertificateDAOImplTest {
         List<Certificate> certificates = certificateDAO.findAll(querySpecification);
         Assertions.assertTrue(certificates.isEmpty());
     }
-
+ */
     @Test
     void findAllValid() {
         List<Certificate> certificates = certificateDAO.findAll();
@@ -87,10 +89,10 @@ class CertificateDAOImplTest {
     @Test
     void updateValid() {
         Certificate certificate = Certificate.builder()
-                .name("test name")
-                .description("Test description")
-                .price(new BigDecimal("11"))
-                .duration(4)
+                .name("name for test create certificate")
+                .description("Some description for test")
+                .price(new BigDecimal("100"))
+                .duration(10)
                 .build();
         Certificate actual = certificateDAO.update(certificate);
         Assertions.assertEquals(certificate.getName(), actual.getName());

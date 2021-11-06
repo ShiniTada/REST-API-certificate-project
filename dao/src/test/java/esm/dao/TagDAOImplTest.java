@@ -1,7 +1,8 @@
-package com.epam.esm.dao;
+package esm.dao;
 
-import com.epam.esm.config.TestConfig;
+import com.epam.esm.dao.TagDAO;
 import com.epam.esm.entity.Tag;
+import esm.config.TestConfig;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,7 +27,7 @@ class TagDAOImplTest {
     @Test
     void findAllValid() {
         List<Tag> tags = tagDAO.findAll();
-        Assertions.assertEquals(2, tags.size());
+        Assertions.assertEquals(7, tags.size());
     }
 
     @Test
@@ -41,7 +42,7 @@ class TagDAOImplTest {
     @Test
     void createExistingValid() {
         Tag tag = Tag.builder()
-                .name("IT")
+                .name("SPA")
                 .build();
         Tag actual = tagDAO.create(tag);
         Assertions.assertEquals(tag.getName(), actual.getName());
@@ -51,7 +52,7 @@ class TagDAOImplTest {
     void findByIdValid() {
         Long id = 1L;
         Optional<Tag> actual = tagDAO.findById(id);
-        Assertions.assertEquals("IT", actual.get().getName());
+        Assertions.assertEquals("SPA", actual.get().getName());
     }
 
     @Test
@@ -86,12 +87,12 @@ class TagDAOImplTest {
     void findAllByCertificateIdEmpty() {
         Long id = 5L;
         List<Tag> tags = tagDAO.findAllByCertificateId(id);
-        Assertions.assertTrue(tags.isEmpty());
+        Assertions.assertFalse(tags.isEmpty());
     }
 
     @Test
     void findByNameValid() {
-        String name = "IT";
+        String name = "SPA";
         Optional<Tag> actual = tagDAO.findByName(name);
         Assertions.assertEquals(name, actual.get().getName());
     }

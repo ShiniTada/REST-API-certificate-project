@@ -1,6 +1,8 @@
 package com.epam.esm.exception;
 
-public class TagNotFoundException extends CustomServiceException {
+import java.util.function.Supplier;
+
+public class TagNotFoundException extends CustomServiceException{
     private static final int TAG_NOT_FOUND_ERROR_CODE = 104;
     private static final String TAG_NOT_FOUND_MESSAGE = "The tag was not found, id = ";
 
