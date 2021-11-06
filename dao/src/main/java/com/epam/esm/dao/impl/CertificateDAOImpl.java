@@ -50,7 +50,7 @@ public class CertificateDAOImpl implements CertificateDAO {
             "gift_certificate.last_update_date FROM gift_certificate" +
             " LEFT JOIN relationship_certificates_and_tags ON gift_certificate_id = gift_certificate.id " +
             "LEFT JOIN tag ON tag_id = tag.id" +
-            " WHERE (tag.name =:text OR gift_certificate.description LIKE %s) ORDER BY %s ASC;";
+            " WHERE (tag.name =:text OR gift_certificate.description LIKE %s) ORDER BY %s;";
     private static final String QUERY_SPECIFICATION_TEXT = "text";
     private static final String QUERY_SPECIFICATION_ORDER = "order";
 
@@ -58,8 +58,19 @@ public class CertificateDAOImpl implements CertificateDAO {
     @Override
     public List<Certificate> findAll(QuerySpecification querySpecification) {
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        if (querySpecification.getOrder() != null) {
-            parameterSource.addValue(QUERY_SPECIFICATION_ORDER, "gift_certificate." + querySpecification.getOrder());
+
+        if (!ObjectUtils.isEmpty(querySpecification.getOrder())) {
+            StringBuilder orderQuery = new StringBuilder();
+            int size = querySpecification.getOrder().size();
+
+            for (String order : querySpecification.getOrder()) {
+                orderQuery.append("gift_certificate.").append(order);
+                size--;
+                if (size >= 1) {
+                    orderQuery.append(", ");
+                }
+            }
+            parameterSource.addValue(QUERY_SPECIFICATION_ORDER, orderQuery.toString());
         } else {
             parameterSource.addValue(QUERY_SPECIFICATION_ORDER, "gift_certificate.id");
         }

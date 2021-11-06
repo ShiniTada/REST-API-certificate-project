@@ -30,7 +30,7 @@ public class ExceptionManager extends ResponseEntityExceptionHandler {
     private static final String SERVER_ERROR_TEXT = "serverError";
     private static final String DELIMITER = " ";
     private static final String COMMA_DELIMITER = ",";
-
+/*
     @ExceptionHandler(CertificateNotFoundException.class)
     public ResponseEntity<ErrorResponse> controllerNotFoundException(CertificateNotFoundException exception, Locale locale) {
 
@@ -83,4 +83,6 @@ public class ExceptionManager extends ResponseEntityExceptionHandler {
         response.setErrorCode(errorCode);
         return response;
     }
+
+ */
 }
