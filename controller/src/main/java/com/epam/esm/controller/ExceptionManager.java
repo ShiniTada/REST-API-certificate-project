@@ -39,7 +39,7 @@ public class ExceptionManager extends ResponseEntityExceptionHandler {
         response.setErrorCode(exception.getErrorCode());
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
-
+/*
     @ExceptionHandler(TagNotFoundException.class)
     public ResponseEntity<ErrorResponse> tagNotFoundException(TagNotFoundException exception, Locale locale) {
 
@@ -82,4 +82,6 @@ public class ExceptionManager extends ResponseEntityExceptionHandler {
         response.setErrorCode(errorCode);
         return response;
     }
+
+ */
 }

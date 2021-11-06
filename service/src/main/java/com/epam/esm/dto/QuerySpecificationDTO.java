@@ -12,6 +12,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class QuerySpecificationDTO {
-    private String text;
+    private String tagName;
+    private double price;
+    private int duration;
+    private String certificateName;
+    private String description;
     private List<String> order;
 }

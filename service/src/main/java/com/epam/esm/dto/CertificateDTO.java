@@ -38,7 +38,7 @@ public class CertificateDTO {
     @DecimalMin("0.1")
     @DecimalMax("1000.0")
     @NotNull
-    private BigDecimal price;
+    private double price;
 
     @Min(1)
     private int duration;

@@ -38,7 +38,7 @@ public class CertificateDAOImpl implements CertificateDAO {
     private static final String SQL_DELETE_CERTIFICATE_BY_ID = "DELETE FROM gift_certificate WHERE id = ?";
     private static final String SQL_RELATIONSHIP_CERTIFICATES_AND_TEG_BY_ID = "DELETE FROM relationship_certificates_and_tags" +
             " WHERE gift_certificate_id = ?";
-    private static final String SQL_UPDATE_BY_ID = "UPDATE gift_certificate SET %s = ? WHERE id = ?";
+    private static final String SQL_UPDATE_BY_ID = "UPDATE gift_certificate SET %s = ? WHERE id = ? ;";
     private static final String SQL_UPDATE_CERTIFICATE = "UPDATE gift_certificate SET name = ?, description = ?, price = ?, " +
             "duration = ?, last_update_date = ? WHERE id = ?";
     private static final String LAST_UPDATE_DATE_COLUMN = "last_update_date";
@@ -50,21 +50,27 @@ public class CertificateDAOImpl implements CertificateDAO {
             "gift_certificate.last_update_date FROM gift_certificate" +
             " LEFT JOIN relationship_certificates_and_tags ON gift_certificate_id = gift_certificate.id " +
             "LEFT JOIN tag ON tag_id = tag.id" +
-            " WHERE (tag.name =:text OR gift_certificate.description LIKE %s) ORDER BY %s;";
-    private static final String QUERY_SPECIFICATION_TEXT = "text";
+            " WHERE (tag.name LIKE %s OR gift_certificate.description LIKE %s" +
+            " OR gift_certificate.name LIKE %s " +
+            "OR gift_certificate.price =:price OR gift_certificate.duration =:duration) ORDER BY %s;";
     private static final String QUERY_SPECIFICATION_ORDER = "order";
-
+    private static final String QUERY_SPECIFICATION_PRICE = "price";
+    private static final String QUERY_SPECIFICATION_DURATION = "duration";
+    private static final String STRING_GIFT_CERTIFICATE = "gift_certificate.";
 
     @Override
     public List<Certificate> findAll(QuerySpecification querySpecification) {
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        String description = "";
+        String certificateName = "";
+        String tagName = "";
 
         if (!ObjectUtils.isEmpty(querySpecification.getOrder())) {
             StringBuilder orderQuery = new StringBuilder();
             int size = querySpecification.getOrder().size();
 
             for (String order : querySpecification.getOrder()) {
-                orderQuery.append("gift_certificate.").append(order);
+                orderQuery.append(STRING_GIFT_CERTIFICATE).append(order);
                 size--;
                 if (size >= 1) {
                     orderQuery.append(", ");
@@ -75,13 +81,26 @@ public class CertificateDAOImpl implements CertificateDAO {
             parameterSource.addValue(QUERY_SPECIFICATION_ORDER, "gift_certificate.id");
         }
 
-        parameterSource.addValue(QUERY_SPECIFICATION_TEXT, querySpecification.getText());
-
-        String text = ObjectUtils.isEmpty(querySpecification.getText()) ? "'%%'" : "'%" + querySpecification.getText() + "%'";
-
-        String query = String.format(SELECT_CERTIFICATE_QUERY, text, parameterSource.getValue(QUERY_SPECIFICATION_ORDER));
+        parameterSource.addValue(QUERY_SPECIFICATION_DURATION, querySpecification.getDuration());
+        parameterSource.addValue(QUERY_SPECIFICATION_PRICE, querySpecification.getPrice());
+        if (isEmptyFields(querySpecification)) {
+            description = "'%" + querySpecification.getDescription() + "%'";
+            certificateName = "'%" + querySpecification.getCertificateName() + "%'";
+            tagName = "'%" + querySpecification.getTagName() + "%'";
+        } else {
+            description = "'%%'";
+            certificateName = "'%%'";
+            tagName = "'%%'";
+        }
+        String query = String.format(SELECT_CERTIFICATE_QUERY, tagName, description, certificateName, parameterSource.getValue(QUERY_SPECIFICATION_ORDER));
 
         return namedParameterJdbcTemplate.query(query, parameterSource, certificateMapper);
+    }
+
+    private boolean isEmptyFields(QuerySpecification querySpecification) {
+        return !ObjectUtils.isEmpty(querySpecification.getCertificateName()) | !ObjectUtils.isEmpty(querySpecification.getTagName())
+                | !ObjectUtils.isEmpty(querySpecification.getDescription()) | querySpecification.getPrice() != 0 |
+                querySpecification.getDuration() != 0;
     }
 
     @Override
@@ -135,9 +154,7 @@ public class CertificateDAOImpl implements CertificateDAO {
             jdbcTemplate.update(formattedSQL, value, id);
         });
         String formattedSQL = String.format(SQL_UPDATE_BY_ID, LAST_UPDATE_DATE_COLUMN);
-
-        jdbcTemplate.update(formattedSQL, Timestamp.from(ZonedDateTime.now().toInstant()), id);
-
+        jdbcTemplate.update(formattedSQL, ZonedDateTime.now(ZoneId.systemDefault()), id);
         return true;
     }
 
