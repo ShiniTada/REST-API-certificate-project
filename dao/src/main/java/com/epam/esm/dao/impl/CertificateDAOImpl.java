@@ -45,7 +45,7 @@ public class CertificateDAOImpl implements CertificateDAO {
     private static final String SELECT_CERTIFICATES = "SELECT gift_certificate.id,gift_certificate.name," +
             "gift_certificate.description,gift_certificate.price,gift_certificate.duration,gift_certificate.create_date," +
             "gift_certificate.last_update_date FROM gift_certificate";
-    private static final String SELECT_CERTIFICATE_QUERY = "SELECT gift_certificate.id,gift_certificate.name," +
+    private static final String SELECT_CERTIFICATE_QUERY = "SELECT DISTINCT gift_certificate.id,gift_certificate.name," +
             "gift_certificate.description,gift_certificate.price,gift_certificate.duration,gift_certificate.create_date," +
             "gift_certificate.last_update_date FROM gift_certificate" +
             " LEFT JOIN relationship_certificates_and_tags ON gift_certificate_id = gift_certificate.id " +
