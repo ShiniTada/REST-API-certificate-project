@@ -2,7 +2,7 @@ package esm.dao;
 
 import com.epam.esm.dao.TagDAO;
 import com.epam.esm.entity.Tag;
-import esm.config.TestConfig;
+import esm.configuration.TestConfig;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,7 +33,7 @@ class TagDAOImplTest {
     @Test
     void createNewValid() {
         Tag tag = Tag.builder()
-                .name("tag")
+                .name("TOY")
                 .build();
         Tag actual = tagDAO.create(tag);
         Assertions.assertEquals(tag.getName(), actual.getName());
@@ -99,7 +99,7 @@ class TagDAOImplTest {
 
     @Test
     void findByNameNotExists() {
-        String name = "test case";
+        String name = "for test";
         Optional<Tag> actual = tagDAO.findByName(name);
         Assertions.assertTrue(actual.isEmpty());
     }

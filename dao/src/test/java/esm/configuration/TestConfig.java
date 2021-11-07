@@ -1,4 +1,4 @@
-package esm.config;
+package esm.configuration;
 
 import com.epam.esm.configuration.DatabaseConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;

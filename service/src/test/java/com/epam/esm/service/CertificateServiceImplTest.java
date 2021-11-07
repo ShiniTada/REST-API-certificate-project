@@ -53,17 +53,17 @@ class CertificateServiceImplTest {
     @BeforeEach
     public void initEach() {
         certificate = Certificate.builder()
-                .name("test name")
-                .description("test description")
-                .price(new Double("10"))
-                .duration(5)
+                .name("for test")
+                .description("some info")
+                .price(10.0)
+                .duration(60)
                 .tags(new HashSet<>())
                 .build();
         certificateDTO =  CertificateDTO.builder()
-                .name("test name")
-                .description("test description")
-                .price(new Double("10"))
-                .duration(5)
+                .name("for test")
+                .description("some info")
+                .price(10.0)
+                .duration(60)
                 .tags(new HashSet<>())
                 .build();
     }
