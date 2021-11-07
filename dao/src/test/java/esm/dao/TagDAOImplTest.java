@@ -2,7 +2,7 @@ package esm.dao;
 
 import com.epam.esm.dao.TagDAO;
 import com.epam.esm.entity.Tag;
-import esm.configuration.TestConfig;
+import configuration.TestConfig;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

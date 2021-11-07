@@ -3,7 +3,7 @@ package esm.dao;
 import com.epam.esm.dao.CertificateDAO;
 import com.epam.esm.entity.Certificate;
 import com.epam.esm.entity.QuerySpecification;
-import esm.configuration.TestConfig;
+import configuration.TestConfig;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
