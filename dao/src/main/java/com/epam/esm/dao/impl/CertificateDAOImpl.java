@@ -113,7 +113,7 @@ public class CertificateDAOImpl implements CertificateDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_INSERT_CERTIFICATE, new String[]{"id"});
             preparedStatement.setString(1, certificate.getName());
             preparedStatement.setString(2, certificate.getDescription());
-            preparedStatement.setBigDecimal(3, certificate.getPrice());
+            preparedStatement.setDouble(3, certificate.getPrice());
             preparedStatement.setInt(4, certificate.getDuration());
             preparedStatement.setTimestamp(5, Timestamp.from(certificate.getCreateDate().toInstant()));
             preparedStatement.setTimestamp(6, Timestamp.from(certificate.getLastUpdateDate().toInstant()));

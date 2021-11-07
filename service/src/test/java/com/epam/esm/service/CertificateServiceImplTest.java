@@ -55,14 +55,14 @@ class CertificateServiceImplTest {
         certificate = Certificate.builder()
                 .name("test name")
                 .description("test description")
-                .price(new BigDecimal("10"))
+                .price(new Double("10"))
                 .duration(5)
                 .tags(new HashSet<>())
                 .build();
         certificateDTO =  CertificateDTO.builder()
                 .name("test name")
                 .description("test description")
-                .price(new BigDecimal("10"))
+                .price(new Double("10"))
                 .duration(5)
                 .tags(new HashSet<>())
                 .build();

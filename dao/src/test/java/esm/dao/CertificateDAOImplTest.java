@@ -50,7 +50,7 @@ class CertificateDAOImplTest {
         Certificate certificate = Certificate.builder()
                 .name("name for test create certificate")
                 .description("Some description for test")
-                .price(new BigDecimal("100"))
+                .price(new Double("100"))
                 .duration(10)
                 .build();
         Certificate actual = certificateDAO.create(certificate);
@@ -91,7 +91,7 @@ class CertificateDAOImplTest {
         Certificate certificate = Certificate.builder()
                 .name("name for test create certificate")
                 .description("Some description for test")
-                .price(new BigDecimal("100"))
+                .price(new Double("100"))
                 .duration(10)
                 .build();
         Certificate actual = certificateDAO.update(certificate);
