@@ -28,7 +28,7 @@ class CertificateDAOImplTest {
     private CertificateDAO certificateDAO;
 
     @Test
-    void findAllQuerySpecification() {
+    void findAllQuerySpecificationTest() {
         QuerySpecification querySpecification = QuerySpecification.builder()
                 .tagName("SPA")
                 .build();
@@ -37,14 +37,14 @@ class CertificateDAOImplTest {
     }
 
     @Test
-    void findAllQuerySpecificationEmptySpecification() {
+    void findAllQuerySpecificationEmptySpecificationTest() {
         QuerySpecification querySpecification = new QuerySpecification();
         List<Certificate> certificates = certificateDAO.findAll(querySpecification);
         Assertions.assertFalse(certificates.isEmpty());
     }
 
     @Test
-    void createValid() {
+    void createTest() {
         Certificate certificate = Certificate.builder()
                 .name("name for test create certificate")
                 .description("Some description for test")
@@ -56,27 +56,27 @@ class CertificateDAOImplTest {
     }
 
     @Test
-    void findAllValid() {
+    void findAllTest() {
         List<Certificate> certificates = certificateDAO.findAll();
         Assertions.assertFalse(certificates.isEmpty());
     }
 
     @Test
-    void findByIdValid() {
+    void findByIdTest() {
         Long id = 1L;
         Optional<Certificate> actual = certificateDAO.findById(id);
         Assertions.assertFalse(actual.isEmpty());
     }
 
     @Test
-    void findByIdNotExists() {
+    void findByIdNotExistsTest() {
         Long id = 1244L;
         Optional<Certificate> actual = certificateDAO.findById(id);
         Assertions.assertTrue(actual.isEmpty());
     }
 
     @Test
-    void updateValid() {
+    void updateTest() {
         Certificate certificate = Certificate.builder()
                 .name("name for test create certificate")
                 .description("Some description for test")
@@ -88,7 +88,7 @@ class CertificateDAOImplTest {
     }
 
     @Test
-    void applyPatchTrue() {
+    void applyPatchTrueTest() {
         Long id = 1L;
         Map<String, Object> patchValues = new HashMap<>();
         boolean actual = certificateDAO.applyPatch(patchValues, id);
@@ -96,14 +96,14 @@ class CertificateDAOImplTest {
     }
 
     @Test
-    void deleteTrue() {
+    void deleteTrueTest() {
         Long id = 1L;
         boolean flag = certificateDAO.delete(id);
         Assertions.assertTrue(flag);
     }
 
     @Test
-    void deleteFalse() {
+    void deleteFalseTest() {
         Long id = 1231L;
         boolean flag = certificateDAO.delete(id);
         Assertions.assertFalse(flag);

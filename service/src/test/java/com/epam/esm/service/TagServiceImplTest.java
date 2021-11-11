@@ -43,7 +43,7 @@ class TagServiceImplTest {
     }
 
     @Test
-    void findALlValid() {
+    void findAllTest() {
         List<Tag> tags = new ArrayList<>();
         tags.add(tag);
         List<TagDTO> expected = tags.stream().map(mapperDTO::convertTagToDTO).collect(Collectors.toList());
@@ -53,7 +53,7 @@ class TagServiceImplTest {
     }
 
     @Test
-    void findAllEmpty() {
+    void findAllEmptyTest() {
         List<Tag> tags = new ArrayList<>();
         List<TagDTO> expected = new ArrayList<>();
         Mockito.when(tagDAO.findAll()).thenReturn(tags);
@@ -62,7 +62,7 @@ class TagServiceImplTest {
     }
 
     @Test
-    void findByIdValid() {
+    void findByIdTest() {
         Optional<Tag> optionalTag = Optional.of(tag);
         Long id = 1L;
         TagDTO expected = mapperDTO.convertTagToDTO(tag);
@@ -72,7 +72,7 @@ class TagServiceImplTest {
     }
 
     @Test()
-    void findByIdException() {
+    void findByIdExceptionTest() {
         Long id = 1L;
         Mockito.when(tagDAO.findById(id)).thenReturn(Optional.empty());
         Assertions.assertThrows(TagNotFoundException.class, () -> {
@@ -82,7 +82,7 @@ class TagServiceImplTest {
 
     @Test
     @MockitoSettings(strictness = Strictness.LENIENT)
-    void createValid() {
+    void createTagTest() {
         Mockito.when(tagDAO.create(tag)).thenReturn(tag);
         TagDTO expected = mapperDTO.convertTagToDTO(tag);
         TagDTO actual = tagService.create(expected);
@@ -90,7 +90,7 @@ class TagServiceImplTest {
     }
 
     @Test
-    void deleteValid() {
+    void deleteTagTest() {
         Long id = 1L;
         Mockito.when(tagDAO.findById(id)).thenReturn(Optional.of(tag));
         Mockito.when(tagDAO.delete(id)).thenReturn(true);
@@ -99,7 +99,7 @@ class TagServiceImplTest {
     }
 
     @Test
-    void deleteException() {
+    void deleteExceptionTest() {
         Long id = 1L;
         Mockito.when(tagDAO.findById(id)).thenReturn(Optional.empty());
         Assertions.assertThrows(TagNotFoundException.class, () -> {

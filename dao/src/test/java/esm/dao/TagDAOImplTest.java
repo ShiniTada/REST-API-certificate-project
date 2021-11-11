@@ -25,13 +25,13 @@ class TagDAOImplTest {
     private TagDAO tagDAO;
 
     @Test
-    void findAllValid() {
+    void findAllTest() {
         List<Tag> tags = tagDAO.findAll();
         Assertions.assertEquals(7, tags.size());
     }
 
     @Test
-    void createNewValid() {
+    void createNewValidTest() {
         Tag tag = Tag.builder()
                 .name("TOY")
                 .build();
@@ -40,7 +40,7 @@ class TagDAOImplTest {
     }
 
     @Test
-    void createExistingValid() {
+    void createExistingTest() {
         Tag tag = Tag.builder()
                 .name("SPA")
                 .build();
@@ -49,56 +49,56 @@ class TagDAOImplTest {
     }
 
     @Test
-    void findByIdValid() {
+    void findByIdTest() {
         Long id = 1L;
         Optional<Tag> actual = tagDAO.findById(id);
         Assertions.assertEquals("SPA", actual.get().getName());
     }
 
     @Test
-    void findByIdNotExists() {
+    void findByIdNotExistsTest() {
         Long id = 112L;
         Optional<Tag> actual = tagDAO.findById(id);
         Assertions.assertTrue(actual.isEmpty());
     }
 
     @Test
-    void deleteTrue() {
+    void deleteTrueTest() {
         Long id = 1L;
         boolean flag = tagDAO.delete(id);
         Assertions.assertTrue(flag);
     }
 
     @Test
-    void deleteFalse() {
+    void deleteFalseTest() {
         Long id = 112L;
         boolean flag = tagDAO.delete(id);
         Assertions.assertFalse(flag);
     }
 
     @Test
-    void findAllByCertificateIdValid() {
+    void findAllByCertificateIdTest() {
         Long id = 1L;
         List<Tag> tags = tagDAO.findAllByCertificateId(id);
         Assertions.assertFalse(tags.isEmpty());
     }
 
     @Test
-    void findAllByCertificateIdEmpty() {
+    void findAllByCertificateIdEmptyTest() {
         Long id = 5L;
         List<Tag> tags = tagDAO.findAllByCertificateId(id);
         Assertions.assertFalse(tags.isEmpty());
     }
 
     @Test
-    void findByNameValid() {
+    void findByTagNameTest() {
         String name = "SPA";
         Optional<Tag> actual = tagDAO.findByName(name);
         Assertions.assertEquals(name, actual.get().getName());
     }
 
     @Test
-    void findByNameNotExists() {
+    void findByTagNameNotExistsTest() {
         String name = "for test";
         Optional<Tag> actual = tagDAO.findByName(name);
         Assertions.assertTrue(actual.isEmpty());

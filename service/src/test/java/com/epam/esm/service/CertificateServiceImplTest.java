@@ -69,7 +69,7 @@ class CertificateServiceImplTest {
     }
 
     @Test
-    void createValid() {
+    void createCertificateTest() {
         Mockito.when(certificateDAO.create(certificate)).thenReturn(certificate);
         Mockito.when(mapperDTO.convertCertificateToDTO(certificate)).thenReturn(certificateDTO);
         Mockito.when(mapperDTO.convertDTOToCertificate(certificateDTO)).thenReturn(certificate);
@@ -78,7 +78,7 @@ class CertificateServiceImplTest {
     }
 
     @Test
-    void findAllValid() {
+    void findAllTest() {
         List<Certificate> certificates = new ArrayList<>();
         List<CertificateDTO> expected = new ArrayList<>();
         certificates.add(certificate);
@@ -90,7 +90,7 @@ class CertificateServiceImplTest {
     }
 
     @Test
-    void findAllEmpty() {
+    void findAllEmptyTest() {
         List<Certificate> certificates = new ArrayList<>();
         List<CertificateDTO> expected = new ArrayList<>();
         Mockito.when(certificateDAO.findAll()).thenReturn(certificates);
@@ -99,7 +99,7 @@ class CertificateServiceImplTest {
     }
 
     @Test
-    void findByIdValid() {
+    void findByIdTest() {
         Optional<Certificate> optionalCertificate = Optional.of(certificate);
         Long id = 1L;
         Mockito.when(certificateDAO.findById(id)).thenReturn(optionalCertificate);
@@ -109,7 +109,7 @@ class CertificateServiceImplTest {
     }
 
     @Test
-    void findByIdException() {
+    void findByIdExceptionTest() {
         Long id = 1L;
         Mockito.when(certificateDAO.findById(id)).thenReturn(Optional.empty());
         Assertions.assertThrows(CertificateNotFoundException.class, () -> {
@@ -130,7 +130,7 @@ class CertificateServiceImplTest {
     }
 
     @Test
-    void updateValid() {
+    void updateTest() {
         Optional<Certificate> optionalCertificate = Optional.of(certificate);
         Long id = 1L;
         certificateDTO.setId(id);
@@ -142,7 +142,7 @@ class CertificateServiceImplTest {
     }
 
     @Test
-    void updateException() {
+    void updateExceptionTest() {
         Long id = 1L;
         certificateDTO.setId(id);
         certificate.setId(id);
@@ -153,7 +153,7 @@ class CertificateServiceImplTest {
     }
 
     @Test
-    void applyPatchValid() {
+    void applyPatchTest() {
         PatchDTO patchDTO = new PatchDTO();
         Map<String, Object> patchMap = new HashMap<>();
         Mockito.when(objectMapper.convertValue(patchDTO, Map.class)).thenReturn(patchMap);
@@ -168,7 +168,7 @@ class CertificateServiceImplTest {
     }
 
     @Test
-    void applyPatchException() {
+    void applyPatchExceptionTest() {
         PatchDTO patchDTO = new PatchDTO();
         Map<String, Object> patchMap = new HashMap<>();
         Mockito.when(objectMapper.convertValue(patchDTO, Map.class)).thenReturn(patchMap);
@@ -182,7 +182,7 @@ class CertificateServiceImplTest {
     }
 
     @Test
-    void attachTagsValid() {
+    void attachTagsTest() {
         CertificateDTO expected = new CertificateDTO();
         HashSet<TagDTO> tagDTOs = new HashSet<>();
         CertificateDTO actual = certificateService.attachTags(expected, tagDTOs);
@@ -190,7 +190,7 @@ class CertificateServiceImplTest {
     }
 
     @Test
-    void deleteValid() {
+    void deleteCertificatesTest() {
         Long id = 1L;
         Mockito.when(certificateDAO.findById(id)).thenReturn(Optional.of(new Certificate()));
         Mockito.when(certificateDAO.delete(id)).thenReturn(true);
